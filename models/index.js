@@ -12,19 +12,20 @@ Product.belongsTo(Category, {
 // Categories have many Products
 Category.hasMany(Product, {
   foreignKey: 'category_id',
-  onDelete: 'CASCADE',
+  //onDelete: 'CASCADE',
 });
 
 // Product belongToMany Tags (through ProductTag)
-Product.belongsToMany(Tag, { through: ProductTag, foreignKey: 'product_id' });
+Product.belongsToMany(Tag, { 
+  through: ProductTag, 
+  as: 'productTag_products', 
+  foreignKey: 'product_id' });
 
 // Tags belongToMany Products (through ProductTag)
-Tag.belongsToMany(Product, { through: ProductTag, foreignKey: 'tag_id' });
-
-// await Product.sync();
-// await Category.sync();
-// await Tag.sync();
-// await ProductTag.sync();
+Tag.belongsToMany(Product, { 
+  through: ProductTag, 
+  as: 'productTag_products', 
+  foreignKey: 'tag_id' });
 
 module.exports = {
   Product,
